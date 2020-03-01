@@ -1,16 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-w = np.array([0.1, 0.3])
-eta = 0.01
+w = np.array([0.8, 0.1])
+eta = 0.007
 
 print(w, eta)
 
 all_weights = []
 energy = []
-i = 0
+
 while (w[0]+w[1]) < 1 and w[0] > 0 and w[1] > 0 :
-    i+=1
     f_w = - np.log(1 - w[0] - w[1]) - np.log(w[0]) - np.log(w[1])
     energy.append(f_w)
     
@@ -26,12 +25,18 @@ while (w[0]+w[1]) < 1 and w[0] > 0 and w[1] > 0 :
     else:
         w = new_w
      
-        
-temp = np.array(all_weights)
-plt.scatter(temp[:, 0], temp[:, 1])
+all_weights = np.array(all_weights)
+
+plt.scatter(all_weights[:, 0], all_weights[:, 1])
 plt.xlabel("X-axis")
 plt.ylabel("Y-axis")
 plt.xlim([0, 1])
 plt.ylim([0, 1])
-plt.title("Gradient Descent weight updates")
+plt.title("Gradient Descent Weight Updates")
+plt.show()
+
+plt.scatter(range(len(energy)), energy)
+plt.xlabel("Number of Iterations")
+plt.ylabel("Energy f(w)")
+plt.title("Changes in Energy")
 plt.show()
