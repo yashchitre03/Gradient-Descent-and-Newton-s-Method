@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-w = np.array([0.49, 0.49])
-eta = 0.001
+w = np.array([0.15, 0.6])
+eta = 0.01
 
 print(w, eta)
 
@@ -27,11 +27,9 @@ while (w[0]+w[1]) < 1 and w[0] > 0 and w[1] > 0 :
      
 all_weights = np.array(all_weights)
 
-plt.plot(all_weights[:, 0], all_weights[:, 1], '.')
+plt.plot(all_weights[:, 0], all_weights[:, 1], '-o')
 plt.xlabel("X-axis")
 plt.ylabel("Y-axis")
-plt.xlim([0, 1])
-plt.ylim([0, 1])
 plt.title("Gradient Descent Weight Updates")
 plt.show()
 
@@ -43,8 +41,8 @@ plt.show()
 
 
 
-w = np.array([0.49, 0.49])
-eta = 0.001
+w = np.array([0.15, 0.6])
+eta = 0.01
 
 print(f"Initial Weight is: {w}\nLearning Rate is: {eta}")
 
@@ -62,24 +60,24 @@ while (w[0]+w[1]) < 1 and w[0] > 0 and w[1] > 0 :
     
     grad = np.array([(1 / (1-w[0]-w[1])) - (1 / w[0]), (1 / (1-w[0]-w[1])) - (1 / w[1])])
     
-    H[0,:] = [(1 / (1-w[0]-w[1])**2) - (1 / w[0]**2), (1 / (1-w[0]-w[1])**2)]
-    H[1,:] = [(1 / (1-w[0]-w[1])**2), (1 / (1-w[0]-w[1])**2) - (1 / w[1]**2)]
+    H[0,:] = [(1 / (1-w[0]-w[1])**2) + (1 / w[0]**2),
+              (1 / (1-w[0]-w[1])**2)]
+    H[1,:] = [(1 / (1-w[0]-w[1])**2),
+              (1 / (1-w[0]-w[1])**2) + (1 / w[1]**2)]
     
     delta_w = eta * np.matmul(np.linalg.inv(H), grad)
     new_w = w - delta_w
     
-    if np.linalg.norm(w - new_w) < 0.00001:
+    if np.linalg.norm(w - new_w) < 0.001:
         break
     else:
         w = new_w
         
         
 all_weights = np.array(all_weights)
-plt.plot(all_weights[:, 0], all_weights[:, 1], '.')
+plt.plot(all_weights[:, 0], all_weights[:, 1], '-o')
 plt.xlabel("X-axis")
 plt.ylabel("Y-axis")
-plt.xlim([0, 1])
-plt.ylim([0, 1])
 plt.title("Newton's Method Weight Updates")
 plt.show()
 
